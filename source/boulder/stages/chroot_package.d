@@ -38,9 +38,6 @@ static public StageReturn chrootPackage(scope StageContext context)
 {
     import core.sys.posix.pwd : getpwnam, passwd;
 
-    passwd* p = getpwnam("nobody");
-    immutable nobodyUser = p is null ? 65_534 : p.pw_uid;
-
     string[string] environ;
     environ["PATH"] = "/usr/bin:/usr/sbin";
     string[] archCommand;
@@ -68,8 +65,6 @@ static public StageReturn chrootPackage(scope StageContext context)
                 context.job.guestPaths.recipe),
         /* Start at working directory */
         "--workdir", context.job.guestPaths.buildRoot,
-        /* Set the user to use */
-        format!"--uid=%s"(nobodyUser),
         /* Enable colours */
         "-s", "TERM=xterm-256color",
         /* Set HOME for the packages that need it */
