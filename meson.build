@@ -1,7 +1,7 @@
 project(
 	'boulder',
 	['d'],
-	version: '0.0.0',
+	version: '1.0.1',
 	license: [
 		'Zlib',
 	]
@@ -19,7 +19,7 @@ libmoss = subproject('libmoss',
 	default_options: [
 		'default_library=static',
 	],
-	version: '>=1.1.0'
+	version: '>=1.2.0'
 )
 
 # Grab moss-config
