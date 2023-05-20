@@ -411,11 +411,7 @@ public final class Controller : StageContext
             {
                 trace(format!"Unmounting %s"(m));
                 m.unmountFlags = MNT.DETACH;
-                auto err = m.unmount();
-                if (!err.isNull())
-                {
-                    error(format!"Unmount failure: %s (%s)"(m.target, err.get.toString));
-                }
+                m.unmount();
             }
         }
         return result;
@@ -424,7 +420,7 @@ public final class Controller : StageContext
     /**
      * Add mounts to track list to unmount them
      */
-    void addMount(in Mount mount) @safe nothrow
+    void addMount(in FileMount mount) @safe nothrow
     {
         mountPoints ~= mount;
     }
@@ -511,6 +507,6 @@ private:
     bool _confinement;
     bool _compilerCache;
 
-    Mount[] mountPoints;
+    FileMount[] mountPoints;
     Profile profileObj;
 }
